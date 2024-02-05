@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      #countdown {
+        text-align: center;
+      }
+
+      #countdown div {
+        font-size: 2em;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="countdown">
+      <div id="months"></div>
+      <div id="days"></div>
+      <div id="hours"></div>
+      <div id="minutes"></div>
+      <div id="seconds"></div>
+    </div>
+    <script>
+      function updateCountdown() {
+        const targetDate = new Date("March 9, 2024 15:00:00").getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        const months = Math.floor(difference / (1000 * 60 * 60 * 24 * 30));
+        const days = Math.floor(
+          (difference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)
+        );
+        const hours = Math.floor(
+          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (difference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("months").innerText = months + " Months ";
+        document.getElementById("days").innerText = days + " Days ";
+        document.getElementById("hours").innerText = hours + " Hours ";
+        document.getElementById("minutes").innerText = minutes + " Minutes ";
+        document.getElementById("seconds").innerText = seconds + " Seconds ";
+
+        if (difference < 0) {
+          clearInterval(interval);
+          document.getElementById("countdown").innerText = "Time is up!";
+        }
+      }
+
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000); // Update every second
+    </script>
+  </body>
+</html>
